@@ -519,24 +519,24 @@ class Landing extends Component {
                     {solutionsLoading ?
                         this.renderSolutionsSkeleton() :
                         <div className="BodyContainer2" style={{ backgroundImage: `url(${this.state.backgroundImage})` }}>
-                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/ship.jpg")} onMouseLeave={this.handleMouseLeave}>
-                                <img src="src\assets\Ship_logo.png" width={200} alt="" />
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("public/ship.jpg")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="public\Ship_logo.png" width={200} alt="" />
                                 <h2>Shipping Solution</h2>
                             </div>
-                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/Track.png")} onMouseLeave={this.handleMouseLeave}>
-                                <img src="src\assets\Inland_logo.png" width={200} alt="" />
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("public/Track.png")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="public\Inland_logo.png" width={200} alt="" />
                                 <h2>Inland Transportation & Logistics Solutions</h2>
                             </div>
-                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/Air.png")} onMouseLeave={this.handleMouseLeave}>
-                                <img src="src\assets\Air_cargo.png" width={200} alt="" />
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("public/Air.png")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="public\Air_cargo.png" width={200} alt="" />
                                 <h2>Air Cargo Solution</h2>
                             </div>
-                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/digital.jpg")} onMouseLeave={this.handleMouseLeave}>
-                                <img src="src\assets\Digital_cargo.png" width={200} alt="" />
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("public/digital.jpg")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="public\Digital_cargo.png" width={200} alt="" />
                                 <h2>Digital Business Solutions</h2>
                             </div>
-                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/cargo.png")} onMouseLeave={this.handleMouseLeave}>
-                                <img src="src\assets\cargo_bg.png" width={200} alt="" />
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("public/cargo.png")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="public\cargo_bg.png" width={200} alt="" />
                                 <h2>Cargo Cover Solutions</h2>
                             </div>
                         </div>
