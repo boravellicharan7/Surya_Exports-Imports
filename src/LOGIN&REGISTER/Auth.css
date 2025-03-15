@@ -1,7 +1,7 @@
 /* ====== General Styles ====== */
 
 .authPageContainer {
-    background: url('src/assets/login.jpg') center/cover no-repeat;
+    background: url('../assets/login.jpg') center/cover no-repeat;
     display: flex;
     height: 100vh;
     overflow: hidden;

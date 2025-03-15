@@ -66,22 +66,22 @@ const SOLUTION_CATEGORIES = [
     {
         name: "Shipping Solution",
         logo: "src/assets/Ship_logo.png",
-        bgImage: "../../src/assets/ship.jpg"
+        bgImage: "src/assets/ship.jpg"
     },
     {
         name: "Inland Transportation & Logistics Solutions",
         logo: "src/assets/Inland_logo.png",
-        bgImage: "../../src/assets/Track.png"
+        bgImage: "src/assets/Track.png"
     },
     {
         name: "Air Cargo Solution",
         logo: "src/assets/Air_cargo.png",
-        bgImage: "../../src/assets/Air.png"
+        bgImage: "src/assets/Air.png"
     },
     {
         name: "Digital Business Solutions",
         logo: "src/assets/Digital_cargo.png",
-        bgImage: "../../src/assets/digital.jpg"
+        bgImage: "src/assets/digital.jpg"
     },
     {
         name: "Cargo Cover Solutions",
@@ -584,7 +584,7 @@ class Landing extends Component {
                                 <div className="carousel-item" data-bs-interval="10000">
                                     <div className="card lg:card-side bg-base-100 shadow-xl">
                                         <figure>
-                                            <img src="src\assets\OceanShip.jpg" alt="Album" />
+                                            <img src="src/assets/OceanShip.jpg" alt="Album" />
                                         </figure>
                                         <div className="card-body">
                                             <h2 className="card-title">Trusted Ocean Freight Solutions</h2>
