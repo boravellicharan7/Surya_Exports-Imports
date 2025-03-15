@@ -3,6 +3,8 @@ import "./Auth.css";
 import React, { Component } from "react";
 import { signInWithEmail, registerWithEmail, signInWithGoogle, signInAsGuest } from "../FIREBASE/Auth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+// Import logo properly - adjust the path based on your project structure
+import companyLogo from "/src/assets/Company_logo.png";
 
 class AuthPage extends Component {
   constructor(props) {
@@ -15,12 +17,22 @@ class AuthPage extends Component {
       showPassword: false,
       showConfirmPassword: false,
       alert: null,
+      isLoading: true,
     };
+  }
+
+  componentDidMount() {
+    // Simulate loading - in a real app, you might be checking auth state or loading preferences
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 1500);
   }
 
   handleSubmit = async (e) => {
     e.preventDefault();
     const { isLogin, email, password, confirmPassword } = this.state;
+    
+    this.setState({ isLoading: true });
 
     try {
       if (isLogin) {
@@ -30,6 +42,7 @@ class AuthPage extends Component {
       } else {
         if (password !== confirmPassword) {
           this.showAlert("error", "Passwords do not match!");
+          this.setState({ isLoading: false });
           return;
         }
         await registerWithEmail(email, password);
@@ -38,26 +51,31 @@ class AuthPage extends Component {
       }
     } catch (error) {
       this.showAlert("error", error.message);
+      this.setState({ isLoading: false });
     }
   };
 
   handleGoogleLogin = async () => {
+    this.setState({ isLoading: true });
     try {
       await signInWithGoogle();
       this.showAlert("success", "Google login successful!");
       this.redirectAfterAuth();
     } catch (error) {
       this.showAlert("error", error.message);
+      this.setState({ isLoading: false });
     }
   };
 
   handleGuestLogin = async () => {
+    this.setState({ isLoading: true });
     try {
       await signInAsGuest();
       this.showAlert("success", "Logged in as guest!");
       this.redirectAfterAuth();
     } catch (error) {
       this.showAlert("error", error.message);
+      this.setState({ isLoading: false });
     }
   };
 
@@ -85,7 +103,45 @@ class AuthPage extends Component {
     this.setState((prevState) => ({ [field]: !prevState[field] }));
   };
 
-  render() {
+  renderSkeleton() {
+    return (
+      <div className="authPageContainer">
+        {/* Left side skeleton */}
+        <div className="brandSection">
+          <div className="brandContent">
+            <div className="skeleton-logo"></div>
+            <div className="skeleton-text-large"></div>
+            <div className="skeleton-text-small"></div>
+          </div>
+        </div>
+        
+        {/* Right side skeleton */}
+        <div className="formSection">
+          <div className="formContainer">
+            <div className="authFormWrapper skeleton-form">
+              <div className="skeleton-title"></div>
+              <div className="formBar"></div>
+              <div className="skeleton-subtitle"></div>
+              
+              <div className="skeleton-input"></div>
+              <div className="skeleton-input"></div>
+              
+              <div className="skeleton-button"></div>
+              
+              <div className="skeleton-divider"></div>
+              
+              <div className="skeleton-button"></div>
+              <div className="skeleton-button"></div>
+              
+              <div className="skeleton-text-small center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderForm() {
     const { isLogin, email, password, confirmPassword, showPassword, showConfirmPassword, alert } = this.state;
 
     return (
@@ -93,7 +149,7 @@ class AuthPage extends Component {
         {/* Left side with logo and company name */}
         <div className="brandSection">
           <div className="brandContent">
-            <img src="src\assets\Company_logo.png" alt="Logo" className="brandLogo" />
+            <img src={companyLogo} alt="Surya Logo" className="brandLogo" />
             <h1 className="companyName">Surya</h1>
             <p className="brandTagline">Global Logistics</p>
           </div>
@@ -206,6 +262,11 @@ class AuthPage extends Component {
         )}
       </div>
     );
+  }
+
+  render() {
+    const { isLoading } = this.state;
+    return isLoading ? this.renderSkeleton() : this.renderForm();
   }
 }
 

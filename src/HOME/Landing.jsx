@@ -117,6 +117,9 @@ class Landing extends Component {
             cardData: DEFAULT_CARD_DATA,
             slides: DEFAULT_SLIDES,
             isLoading: false,
+            solutionsLoading: true,
+            carouselLoading: true,
+            advisoriesLoading: true,
             customAlert: {
                 show: false,
                 message: ''
@@ -366,6 +369,22 @@ class Landing extends Component {
 
     // ----------------- Lifecycle methods -----------------
     componentDidMount() {
+
+        setTimeout(() => {
+            this.setState({ isLoading: false });
+        }, 1500);
+
+        setTimeout(() => {
+            this.setState({ solutionsLoading: false });
+        }, 2000);
+
+        setTimeout(() => {
+            this.setState({ carouselLoading: false });
+        }, 2500);
+
+        setTimeout(() => {
+            this.setState({ advisoriesLoading: false });
+        }, 3000);
         // Add click listener to close dropdown when clicking outside
         document.addEventListener("mousedown", this.closeDropdown);
 
@@ -413,6 +432,17 @@ class Landing extends Component {
             </div>
         );
     }
+    renderSolutionsSkeleton = () => {
+        return (
+            <div className="BodyContainer2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {[1, 2, 3].map((item) => (
+                        <div key={item} className="skeleton skeleton-solution"></div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
 
     renderSolutionCategories() {
         return this.state.solutionCategories.map((category, index) => (
@@ -428,8 +458,34 @@ class Landing extends Component {
         ));
     }
 
+    renderCarouselSkeleton = () => {
+        return (
+            <div className="BodyContainer4">
+                <div className="skeleton skeleton-carousel"></div>
+            </div>
+        );
+    }
+
+    renderAdvisoriesSkeleton = () => {
+        return (
+            <div className="BodyContainer8Child2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {[1, 2, 3].map((item) => (
+                        <div key={item} className="skeleton-card">
+                            <div className="skeleton skeleton-text small"></div>
+                            <div className="skeleton skeleton-text large"></div>
+                            <div className="skeleton skeleton-text"></div>
+                            <div className="skeleton skeleton-text"></div>
+                            <div className="skeleton skeleton-text"></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
     render() {
-        const { currentPage, bookingId, showPopup, error, isLoading, isLoggedIn, dropdownOpen } = this.state;
+        const { currentPage, bookingId, showPopup, error, isLoading, isLoggedIn, dropdownOpen, solutionsLoading, carouselLoading, advisoriesLoading } = this.state;
         const totalPages = this.getTotalPages();
         const currentCards = this.getCurrentCards();
 
@@ -446,50 +502,55 @@ class Landing extends Component {
 
                 {/* Nav Section */}
                 <header>
-                    <div className="NavContainer1">
-                        <div className="navbar">
-                            <div className="flex">
-                                <img src={logo} alt="Logo" width={100} />
-                            </div>
-                            <div className="flex-2">
-                                <div className="dropdown" ref={this.dropdownRef}>
-                                    <button type="button" onClick={this.toggleDropdown} className="profile-button">
-                                        <img
-                                            alt="Profile"
-                                            src={this.state.isLoggedIn ? userImg : profileImg}
-                                            className="profile-img"
-                                        />
-                                    </button>
-                                    <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
-                                        <ul>
-                                            {isLoggedIn ? (
-                                                <>
+                    {isLoading ? (
+                        <div className="skeleton skeleton-navbar"></div>
+                    ) : (
+                        <div className="NavContainer1">
+                            <div className="navbar">
+                                <div className="flex">
+                                    <img src={logo} alt="Logo" width={100} />
+                                </div>
+                                <div className="flex-2">
+                                    <div className="dropdown" ref={this.dropdownRef}>
+                                        <button type="button" onClick={this.toggleDropdown} className="profile-button">
+                                            <img
+                                                alt="Profile"
+                                                src={this.state.isLoggedIn ? userImg : profileImg}
+                                                className="profile-img"
+                                            />
+                                        </button>
+                                        <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
+                                            <ul>
+                                                {isLoggedIn ? (
+                                                    <>
+                                                        <li>
+                                                            <Link to="/profilepage">Profile</Link>
+                                                        </li>
+                                                        <li>
+                                                            <button type="button" className="logout-btn" onClick={this.handleLogout}>
+                                                                Logout
+                                                            </button>
+                                                        </li>
+                                                    </>
+                                                ) : (
                                                     <li>
-                                                        <Link to="/profilepage">Profile</Link>
+                                                        <Link className="login-btn" to="/Login&Registration">
+                                                            Login & Registration
+                                                        </Link>
                                                     </li>
-                                                    <li>
-                                                        <button type="button" className="logout-btn" onClick={this.handleLogout}>
-                                                            Logout
-                                                        </button>
-                                                    </li>
-                                                </>
-                                            ) : (
-                                                <li>
-                                                    <Link className="login-btn" to="/Login&Registration">
-                                                        Login & Registration
-                                                    </Link>
-                                                </li>
-                                            )}
-                                        </ul>
+                                                )}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="NavContainerChild2">
+                                <p>LEADER IN</p>
+                                <span>GLOBAL & LOGISTICS</span>
+                            </div>
                         </div>
-                        <div className="NavContainerChild2">
-                            <p>LEADER IN</p>
-                            <span>GLOBAL & LOGISTICS</span>
-                        </div>
-                    </div>
+                    )}
                     <div className="transport-search-container">
                         <div className="NavContainer2">
                             <form onSubmit={this.handleClick}>
@@ -517,6 +578,7 @@ class Landing extends Component {
                             </div>
                         )}
                     </div>
+
 
                     {/* Login Modal */}
                     {this.state.showModal && (
@@ -546,9 +608,12 @@ class Landing extends Component {
                     </div>
 
                     {/* Solutions Section with Dynamic Data */}
-                    <div className="BodyContainer2" style={{ backgroundImage: `url(${this.state.backgroundImage})` }}>
-                        {this.renderSolutionCategories()}
-                    </div>
+                    {solutionsLoading ?
+                        this.renderSolutionsSkeleton() :
+                        <div className="BodyContainer2" style={{ backgroundImage: `url(${this.state.backgroundImage})` }}>
+                            {this.renderSolutionCategories()}
+                        </div>
+                    }
 
                     <div className="BodyContainer3">
                         {isLoggedIn ? (
@@ -567,44 +632,47 @@ class Landing extends Component {
                     </div>
 
                     {/* Carousel Section with Static Data as requested */}
-                    <div className="BodyContainer4">
-                        <div id="carouselExampleDark" className="carousel slide" data-bs-ride="carousel">
-                            <div className="carousel-inner">
-                                <div className="carousel-item active" data-bs-interval="10000">
-                                    <div className="card lg:card-side bg-base-100 shadow-xl">
-                                        <figure>
-                                            <img src="src/assets/ShipContainer.png" alt="Album" />
-                                        </figure>
-                                        <div className="card-body">
-                                            <h2 className="card-title">Seamless Global Shipping</h2>
-                                            <p>Experience unmatched reliability with SGL's Standalone Network, offering extensive coverage, tailored solutions, and efficient transit times for your cargo.</p>
+                    {carouselLoading ?
+                        this.renderCarouselSkeleton() :
+                        <div className="BodyContainer4">
+                            <div id="carouselExampleDark" className="carousel slide" data-bs-ride="carousel">
+                                <div className="carousel-inner">
+                                    <div className="carousel-item active" data-bs-interval="10000">
+                                        <div className="card lg:card-side bg-base-100 shadow-xl">
+                                            <figure>
+                                                <img src="src/assets/ShipContainer.png" alt="Album" />
+                                            </figure>
+                                            <div className="card-body">
+                                                <h2 className="card-title">Seamless Global Shipping</h2>
+                                                <p>Experience unmatched reliability with SGL's Standalone Network, offering extensive coverage, tailored solutions, and efficient transit times for your cargo.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="carousel-item" data-bs-interval="10000">
+                                        <div className="card lg:card-side bg-base-100 shadow-xl">
+                                            <figure>
+                                                <img src="src\assets\OceanShip.jpg" alt="Album" />
+                                            </figure>
+                                            <div className="card-body">
+                                                <h2 className="card-title">Trusted Ocean Freight Solutions</h2>
+                                                <p>Navigate global trade with confidence. Our expert logistics and vast shipping network ensure smooth and secure cargo transportation across the world.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="carousel-item" data-bs-interval="10000">
-                                    <div className="card lg:card-side bg-base-100 shadow-xl">
-                                        <figure>
-                                            <img src="src\assets\OceanShip.jpg" alt="Album" />
-                                        </figure>
-                                        <div className="card-body">
-                                            <h2 className="card-title">Trusted Ocean Freight Solutions</h2>
-                                            <p>Navigate global trade with confidence. Our expert logistics and vast shipping network ensure smooth and secure cargo transportation across the world.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            {/* Carousel Controls */}
-                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">◄</span>
-                            </button>
-                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span className="visually-hidden">►</span>
-                            </button>
+                                {/* Carousel Controls */}
+                                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">◄</span>
+                                </button>
+                                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">►</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    }
 
 
                     <div className="BodyContainer5">
@@ -664,91 +732,98 @@ class Landing extends Component {
                     <div className="BodyContainer8">
                         <h1>Customer Advisories</h1>
                         <div className="BodyContainer8Child1"></div>
-                        <div className="BodyContainer8Child2">
-                            <div className="flex flex-col items-center">
-                                {/* Card Display - Static as requested */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    {currentCards.map((card) => (
-                                        <div key={card.id} className="card bg-base-100 w-70 shadow-xl">
-                                            <div className="card-body">
-                                                <h3 className="card-title">{card.date}</h3>
-                                                <h5>{card.title}</h5>
-                                                <p>{card.description}</p>
+                        {advisoriesLoading ?
+                            this.renderAdvisoriesSkeleton() :
+                            <div className="BodyContainer8Child2">
+                                <div className="flex flex-col items-center">
+                                    {/* Card Display - Static as requested */}
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        {currentCards.map((card) => (
+                                            <div key={card.id} className="card bg-base-100 w-70 shadow-xl">
+                                                <div className="card-body">
+                                                    <h3 className="card-title">{card.date}</h3>
+                                                    <h5>{card.title}</h5>
+                                                    <p>{card.description}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
 
-                                {/* Pagination Controls */}
-                                <div className="join mt-4">
-                                    <button onClick={this.prevPage} disabled={currentPage === 1} className="join-item btn">
-                                        «
-                                    </button>
-                                    <button className="join-item btn"> {currentPage}</button>
-                                    <button onClick={this.nextPage} disabled={currentPage === totalPages} className="join-item btn">
-                                        »
-                                    </button>
+                                    {/* Pagination Controls */}
+                                    <div className="join mt-4">
+                                        <button onClick={this.prevPage} disabled={currentPage === 1} className="join-item btn">
+                                            «
+                                        </button>
+                                        <button className="join-item btn"> {currentPage}</button>
+                                        <button onClick={this.nextPage} disabled={currentPage === totalPages} className="join-item btn">
+                                            »
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </main>
 
                 {/* Footer Section */}
-                <footer className="bg-gray-100 py-8 px-4 text-gray-700">
-                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Contact Section */}
-                        <div>
-                            <h3 className="font-bold uppercase mb-3">Country-Location / Local Office</h3>
-                            <p>IN - SGL Mumbai</p>
-                            <p className="flex items-center mt-2">📞 +91 2266378000</p>
-                            <p className="flex items-center">✉️ ind-info@sgl.com</p>
-                            <p className="mt-2">🏢 Office details</p>
-                        </div>
+                {isLoading ? (
+                    <div className="skeleton skeleton-footer"></div>
+                ) : (
+                    <footer className="bg-gray-100 py-8 px-4 text-gray-700">
+                        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {/* Contact Section */}
+                            <div>
+                                <h3 className="font-bold uppercase mb-3">Country-Location / Local Office</h3>
+                                <p>IN - SGL Mumbai</p>
+                                <p className="flex items-center mt-2">📞 +91 2266378000</p>
+                                <p className="flex items-center">✉️ ind-info@sgl.com</p>
+                                <p className="mt-2">🏢 Office details</p>
+                            </div>
 
-                        {/* Business Section */}
-                        <div>
-                            <h3 className="font-bold uppercase mb-3">Doing Business Together</h3>
-                            <p>Solutions / Local Information / E-Business</p>
-                            <p>Sustainability / mySGL</p>
-                        </div>
+                            {/* Business Section */}
+                            <div>
+                                <h3 className="font-bold uppercase mb-3">Doing Business Together</h3>
+                                <p>Solutions / Local Information / E-Business</p>
+                                <p>Sustainability / mySGL</p>
+                            </div>
 
-                        {/* About Section */}
-                        <div>
-                            <h3 className="font-bold uppercase mb-3">Get to Know Us</h3>
-                            <p>SGL Group / Newsroom / Events / Blog / Careers</p>
-                            <p>Contact us / Preference Center</p>
-                            <div className="flex space-x-4 mt-4 text-xl">
-                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                                    <FaFacebook className="text-blue-600 text-2xl hover:text-blue-800" />
-                                </a>
-                                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-                                    <FaTwitter className="text-blue-400 text-2xl hover:text-blue-600" />
-                                </a>
-                                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                                    <FaInstagram className="text-pink-500 text-2xl hover:text-pink-700" />
-                                </a>
-                                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-                                    <FaLinkedin className="text-blue-700 text-2xl hover:text-blue-900" />
-                                </a>
-                                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-                                    <FaYoutube className="text-red-600 text-2xl hover:text-red-800" />
-                                </a>
+                            {/* About Section */}
+                            <div>
+                                <h3 className="font-bold uppercase mb-3">Get to Know Us</h3>
+                                <p>SGL Group / Newsroom / Events / Blog / Careers</p>
+                                <p>Contact us / Preference Center</p>
+                                <div className="flex space-x-4 mt-4 text-xl">
+                                    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                                        <FaFacebook className="text-blue-600 text-2xl hover:text-blue-800" />
+                                    </a>
+                                    <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                                        <FaTwitter className="text-blue-400 text-2xl hover:text-blue-600" />
+                                    </a>
+                                    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                                        <FaInstagram className="text-pink-500 text-2xl hover:text-pink-700" />
+                                    </a>
+                                    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                                        <FaLinkedin className="text-blue-700 text-2xl hover:text-blue-900" />
+                                    </a>
+                                    <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+                                        <FaYoutube className="text-red-600 text-2xl hover:text-red-800" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Footer Bottom */}
-                    <div className="text-center mt-6 text-sm text-gray-500">
-                        <p>Headquarters: +41 227038888 - info@sgl.com</p>
-                        <p>Chemin Rieu 12, 1208 Geneva - Switzerland</p>
-                    </div>
+                        {/* Footer Bottom */}
+                        <div className="text-center mt-6 text-sm text-gray-500">
+                            <p>Headquarters: +41 227038888 - info@sgl.com</p>
+                            <p>Chemin Rieu 12, 1208 Geneva - Switzerland</p>
+                        </div>
 
-                    {/* Legal Links */}
-                    <div className="text-center mt-4 text-xs text-gray-400">
-                        <p>Cookie Settings - Data Privacy - Personal Data Request - Terms of Use - Carrier's Terms & Conditions - EU Commitments - Code of Conduct - Certifications - Speak Up Line</p>
-                    </div>
-                </footer>
+                        {/* Legal Links */}
+                        <div className="text-center mt-4 text-xs text-gray-400">
+                            <p>Cookie Settings - Data Privacy - Personal Data Request - Terms of Use - Carrier's Terms & Conditions - EU Commitments - Code of Conduct - Certifications - Speak Up Line</p>
+                        </div>
+                    </footer>
+                )}
             </>
         );
     }
