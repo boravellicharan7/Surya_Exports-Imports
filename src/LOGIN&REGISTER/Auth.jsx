@@ -17,81 +17,122 @@ class AuthPage extends Component {
       showPassword: false,
       showConfirmPassword: false,
       alert: null,
-      isLoading: true,
+      isLoading: false, // Set to false initially to show the form right away
     };
+    this.alertTimeout = null;
   }
 
-  componentDidMount() {
-    // Simulate loading - in a real app, you might be checking auth state or loading preferences
-    setTimeout(() => {
-      this.setState({ isLoading: false });
-    }, 1500);
+  // Remove the componentDidMount method that was setting isLoading to false after a delay
+  // This was one of the issues causing the skeleton to appear
+
+  componentWillUnmount() {
+    // Clear any remaining timeouts to prevent memory leaks
+    if (this.alertTimeout) {
+      clearTimeout(this.alertTimeout);
+    }
   }
 
   handleSubmit = async (e) => {
     e.preventDefault();
     const { isLogin, email, password, confirmPassword } = this.state;
     
-    this.setState({ isLoading: true });
-
+    // Don't set isLoading to true here - wait until after validation
+    
     try {
       if (isLogin) {
-        await signInWithEmail(email, password);
-        this.showAlert("success", "Logged in successfully!");
-        this.redirectAfterAuth();
-      } else {
-        if (password !== confirmPassword) {
-          this.showAlert("error", "Passwords do not match!");
-          this.setState({ isLoading: false });
+        if (!email || !password) {
+          this.showAlert("error", "Please enter both email and password");
           return;
         }
+        
+        console.log("Attempting to sign in with email:", email);
+        this.showAlert("info", "Signing in...");
+        
+        await signInWithEmail(email, password);
+        console.log("Sign in successful");
+        this.showAlert("success", "Logged in successfully!");
+        setTimeout(() => window.location.href = "/", 2000);
+      } else {
+        if (!email || !password) {
+          this.showAlert("error", "Please enter both email and password");
+          return;
+        }
+        
+        if (password !== confirmPassword) {
+          this.showAlert("error", "Passwords do not match!");
+          return;
+        }
+        
+        console.log("Attempting to register with email:", email);
+        this.showAlert("info", "Creating your account...");
+        
         await registerWithEmail(email, password);
+        console.log("Registration successful");
         this.showAlert("success", "Account created successfully!");
         setTimeout(() => this.setState({ isLogin: true }), 2000);
       }
     } catch (error) {
-      this.showAlert("error", error.message);
-      this.setState({ isLoading: false });
+      console.error("Authentication error:", error);
+      this.showAlert("error", error.message || "Authentication failed");
     }
   };
 
   handleGoogleLogin = async () => {
-    this.setState({ isLoading: true });
     try {
+      console.log("Attempting Google login");
+      this.showAlert("info", "Connecting to Google...");
+      
       await signInWithGoogle();
+      console.log("Google login successful");
       this.showAlert("success", "Google login successful!");
-      this.redirectAfterAuth();
+      setTimeout(() => window.location.href = "/", 2000);
     } catch (error) {
-      this.showAlert("error", error.message);
-      this.setState({ isLoading: false });
+      console.error("Google login error:", error);
+      this.showAlert("error", error.message || "Google login failed");
     }
   };
 
   handleGuestLogin = async () => {
-    this.setState({ isLoading: true });
     try {
+      console.log("Attempting guest login");
+      this.showAlert("info", "Logging in as guest...");
+      
       await signInAsGuest();
+      console.log("Guest login successful");
       this.showAlert("success", "Logged in as guest!");
-      this.redirectAfterAuth();
+      setTimeout(() => window.location.href = "/", 2000);
     } catch (error) {
-      this.showAlert("error", error.message);
-      this.setState({ isLoading: false });
+      console.error("Guest login error:", error);
+      this.showAlert("error", error.message || "Guest login failed");
     }
   };
 
   showAlert = (type, message) => {
+    console.log("Showing alert:", type, message);
+    
+    // Clear any existing timeout
+    if (this.alertTimeout) {
+      clearTimeout(this.alertTimeout);
+    }
+    
     this.setState({ alert: { type, message } });
-    setTimeout(() => this.setState({ alert: null }), 3000);
-  };
-
-  redirectAfterAuth = () => {
-    setTimeout(() => window.location.href = "/", 2000);
+    
+    // Set new timeout for non-error alerts
+    if (type !== "error") {
+      this.alertTimeout = setTimeout(() => {
+        this.setState({ alert: null });
+      }, 3000);
+    }
   };
 
   toggleMode = () => {
     this.setState((prevState) => ({ 
       isLogin: !prevState.isLogin,
-      alert: null
+      alert: null,
+      password: "",
+      confirmPassword: "",
+      showPassword: false,
+      showConfirmPassword: false
     }));
   };
 
@@ -236,11 +277,11 @@ class AuthPage extends Component {
                   <button type="button" className="guestButton" onClick={this.handleGuestLogin}>
                     Continue as Guest
                   </button>
-                </div>
                 
                 <button type="button" className="switchModeButton" onClick={this.toggleMode}>
                   {isLogin ? "Don't have an account? Register" : "Already have an account? Login"}
                 </button>
+                </div>
               </form>
             </div>
           </div>
@@ -266,6 +307,7 @@ class AuthPage extends Component {
 
   render() {
     const { isLoading } = this.state;
+    console.log("Current loading state:", isLoading);
     return isLoading ? this.renderSkeleton() : this.renderForm();
   }
 }

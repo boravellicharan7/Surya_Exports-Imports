@@ -61,35 +61,6 @@ const DEFAULT_SLIDES = [
     ],
 ];
 
-// Solution categories data
-const SOLUTION_CATEGORIES = [
-    {
-        name: "Shipping Solution",
-        logo: "src/assets/Ship_logo.png",
-        bgImage: "../../src/assets/ship.jpg"
-    },
-    {
-        name: "Inland Transportation & Logistics Solutions",
-        logo: "src/assets/Inland_logo.png",
-        bgImage: "../../src/assets/Track.png"
-    },
-    {
-        name: "Air Cargo Solution",
-        logo: "src/assets/Air_cargo.png",
-        bgImage: "../../src/assets/Air.png"
-    },
-    {
-        name: "Digital Business Solutions",
-        logo: "src/assets/Digital_cargo.png",
-        bgImage: "../../src/assets/digital.jpg"
-    },
-    {
-        name: "Cargo Cover Solutions",
-        logo: "src/assets/cargo_bg.png",
-        bgImage: "src/assets/cargo.png"
-    }
-];
-
 // API configuration
 const API_CONFIG = {
     baseUrl: 'https://api-floi.onrender.com/api/booking/',
@@ -124,7 +95,6 @@ class Landing extends Component {
                 show: false,
                 message: ''
             },
-            solutionCategories: SOLUTION_CATEGORIES
         };
         this.dropdownRef = createRef();
         this.searchInputRef = createRef();
@@ -150,8 +120,6 @@ class Landing extends Component {
             return null;
         }
     };
-
-
 
     // ----------------- Nav component methods -----------------
     handleChange = (e) => {
@@ -303,41 +271,6 @@ class Landing extends Component {
         }
     };
 
-    // ----------------- Bootstrap Carousel initialization -----------------
-    initializeCarousels = () => {
-        if (typeof window !== 'undefined') {
-            import('bootstrap/dist/js/bootstrap.bundle.min.js')
-                .then(() => {
-                    if (window.bootstrap) {
-                        const carouselElement = document.querySelector('#carouselExample');
-                        if (carouselElement) {
-                            new window.bootstrap.Carousel(carouselElement, {
-                                interval: 3000,
-                                ride: 'carousel'
-                            });
-                            // console.log('Carousel initialized:', carouselElement);
-                        } else {
-                            console.warn('Carousel element not found: #carouselExample');
-                        }
-
-                        const carouselDarkElement = document.querySelector('#carouselExampleDark');
-                        if (carouselDarkElement) {
-                            new window.bootstrap.Carousel(carouselDarkElement, {
-                                interval: 10000,
-                                ride: 'carousel'
-                            });
-                            // console.log('Dark carousel initialized:', carouselDarkElement);
-                        } else {
-                            console.warn('Carousel element not found: #carouselExampleDark');
-                        }
-                    } else {
-                        console.error('Bootstrap not available on window object');
-                    }
-                })
-                .catch(err => console.error('Failed to load Bootstrap:', err));
-        }
-    };
-
     // ----------------- Firebase Auth Listener (assuming you're using Firebase) -----------------
     setupAuthListener = () => {
         const auth = getAuth();
@@ -391,9 +324,6 @@ class Landing extends Component {
         // Setup auth listener (for Firebase or your auth system)
         this.setupAuthListener();
 
-        // Initialize Bootstrap carousels
-        this.initializeCarousels();
-
         // Focus on search input for better UX
         setTimeout(() => {
             this.focusSearchInput();
@@ -440,28 +370,6 @@ class Landing extends Component {
                         <div key={item} className="skeleton skeleton-solution"></div>
                     ))}
                 </div>
-            </div>
-        );
-    }
-
-    renderSolutionCategories() {
-        return this.state.solutionCategories.map((category, index) => (
-            <div
-                key={index}
-                className="BodyContainer2Child"
-                onMouseEnter={() => this.handleMouseEnter(category.bgImage)}
-                onMouseLeave={this.handleMouseLeave}
-            >
-                <img src={category.logo} width={200} alt={category.name} />
-                <h2>{category.name}</h2>
-            </div>
-        ));
-    }
-
-    renderCarouselSkeleton = () => {
-        return (
-            <div className="BodyContainer4">
-                <div className="skeleton skeleton-carousel"></div>
             </div>
         );
     }
@@ -611,7 +519,26 @@ class Landing extends Component {
                     {solutionsLoading ?
                         this.renderSolutionsSkeleton() :
                         <div className="BodyContainer2" style={{ backgroundImage: `url(${this.state.backgroundImage})` }}>
-                            {this.renderSolutionCategories()}
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/ship.jpg")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="src\assets\Ship_logo.png" width={200} alt="" />
+                                <h2>Shipping Solution</h2>
+                            </div>
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/Track.png")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="src\assets\Inland_logo.png" width={200} alt="" />
+                                <h2>Inland Transportation & Logistics Solutions</h2>
+                            </div>
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/Air.png")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="src\assets\Air_cargo.png" width={200} alt="" />
+                                <h2>Air Cargo Solution</h2>
+                            </div>
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/digital.jpg")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="src\assets\Digital_cargo.png" width={200} alt="" />
+                                <h2>Digital Business Solutions</h2>
+                            </div>
+                            <div className="BodyContainer2Child" onMouseEnter={() => this.handleMouseEnter("../../src/assets/cargo.png")} onMouseLeave={this.handleMouseLeave}>
+                                <img src="src\assets\cargo_bg.png" width={200} alt="" />
+                                <h2>Cargo Cover Solutions</h2>
+                            </div>
                         </div>
                     }
 
@@ -630,50 +557,6 @@ class Landing extends Component {
                             </button>
                         )}
                     </div>
-
-                    {/* Carousel Section with Static Data as requested */}
-                    {carouselLoading ?
-                        this.renderCarouselSkeleton() :
-                        <div className="BodyContainer4">
-                            <div id="carouselExampleDark" className="carousel slide" data-bs-ride="carousel">
-                                <div className="carousel-inner">
-                                    <div className="carousel-item active" data-bs-interval="10000">
-                                        <div className="card lg:card-side bg-base-100 shadow-xl">
-                                            <figure>
-                                                <img src="src/assets/ShipContainer.png" alt="Album" />
-                                            </figure>
-                                            <div className="card-body">
-                                                <h2 className="card-title">Seamless Global Shipping</h2>
-                                                <p>Experience unmatched reliability with SGL's Standalone Network, offering extensive coverage, tailored solutions, and efficient transit times for your cargo.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="carousel-item" data-bs-interval="10000">
-                                        <div className="card lg:card-side bg-base-100 shadow-xl">
-                                            <figure>
-                                                <img src="src\assets\OceanShip.jpg" alt="Album" />
-                                            </figure>
-                                            <div className="card-body">
-                                                <h2 className="card-title">Trusted Ocean Freight Solutions</h2>
-                                                <p>Navigate global trade with confidence. Our expert logistics and vast shipping network ensure smooth and secure cargo transportation across the world.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Carousel Controls */}
-                                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">◄</span>
-                                </button>
-                                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">►</span>
-                                </button>
-                            </div>
-                        </div>
-                    }
-
 
                     <div className="BodyContainer5">
                         <h1>Your Shipping Needs Met</h1>
@@ -729,6 +612,7 @@ class Landing extends Component {
                             <p>With a commitment to sustainability and innovation, SGL is dedicated to moving the world forward. Our comprehensive logistics solutions are designed to meet the evolving needs of our customers, ensuring seamless and efficient transportation across the globe.</p>
                         </div>
                     </div>
+                    
                     <div className="BodyContainer8">
                         <h1>Customer Advisories</h1>
                         <div className="BodyContainer8Child1"></div>
