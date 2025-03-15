@@ -14,15 +14,15 @@ import profileImg from "../assets/profilelogo.png";
 import userImg from "../assets/profile_pic.png"
 
 // Body component assets
-import agriculture from "src/assets/Agriculture.png";
-import fruits from "src/assets/Fruits.png";
-import pharma from "src/assets/pharma.png";
-import carParts from "src/assets/car_parts.png";
-import granite from "src/assets/Granite_stones.png";
-import plastics from "src/assets/plastics.png";
-import food from "src/assets/tablefood.png";
-import wood from "src/assets/stackedwood.png";
-import furniture from "src/assets/tables.png";
+import agriculture from "../assets/Agriculture.png";
+import fruits from "../assets/Fruits.png";
+import pharma from "../assets/pharma.png";
+import carParts from "../assets/car_parts.png";
+import granite from "../assets/Granite_stones.png";
+import plastics from "../assets/plastics.png";
+import food from "../assets/tablefood.png";
+import wood from "../assets/stackedwood.png";
+import furniture from "../assets/tables.png";
 
 // Import styles
 import "./NavStyle.css";
@@ -66,22 +66,22 @@ const SOLUTION_CATEGORIES = [
     {
         name: "Shipping Solution",
         logo: "src/assets/Ship_logo.png",
-        bgImage: "src/assets/ship.jpg"
+        bgImage: "../../src/assets/ship.jpg"
     },
     {
         name: "Inland Transportation & Logistics Solutions",
         logo: "src/assets/Inland_logo.png",
-        bgImage: "src/assets/Track.png"
+        bgImage: "../../src/assets/Track.png"
     },
     {
         name: "Air Cargo Solution",
         logo: "src/assets/Air_cargo.png",
-        bgImage: "src/assets/Air.png"
+        bgImage: "../../src/assets/Air.png"
     },
     {
         name: "Digital Business Solutions",
         logo: "src/assets/Digital_cargo.png",
-        bgImage: "src/assets/digital.jpg"
+        bgImage: "../../src/assets/digital.jpg"
     },
     {
         name: "Cargo Cover Solutions",
@@ -573,7 +573,7 @@ class Landing extends Component {
                                 <div className="carousel-item active" data-bs-interval="10000">
                                     <div className="card lg:card-side bg-base-100 shadow-xl">
                                         <figure>
-                                            <img src="src\assets\ShipContainer.png" alt="Album" />
+                                            <img src="src/assets/ShipContainer.png" alt="Album" />
                                         </figure>
                                         <div className="card-body">
                                             <h2 className="card-title">Seamless Global Shipping</h2>
