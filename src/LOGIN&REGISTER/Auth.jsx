@@ -93,7 +93,7 @@ class AuthPage extends Component {
         {/* Left side with logo and company name */}
         <div className="brandSection">
           <div className="brandContent">
-            <img src="src/assets/Company_logo.png" alt="Logo" className="brandLogo" />
+            <img src="src\assets\Company_logo.png" alt="Logo" className="brandLogo" />
             <h1 className="companyName">Surya</h1>
             <p className="brandTagline">Global Logistics</p>
           </div>
