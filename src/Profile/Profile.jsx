@@ -15,7 +15,7 @@ const UserProfilePage = () => {
           <h2 className="section-title">Leadership</h2>
           <div className="user-details">
             <img
-              src="public\profile_pic.png"
+              src="src\assets\profile_pic.png"
               alt="CEO Portrait"
               className="user-image"
             />
