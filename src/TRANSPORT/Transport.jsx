@@ -98,7 +98,7 @@ class Transport extends Component {
                                             <>
                                                 <li><Link to="/profilepage">Profile</Link></li>
                                                 <li>
-                                                    <Link type="button" onClick={this.executeLogout} className="signOutButton" to="/">Logout</Link>
+                                                    {/* <Link type="button" onClick={this.executeLogout} className="signOutButton" to="/">Logout</Link> */}
                                                 </li>
                                             </>
                                         ) : (
@@ -120,23 +120,6 @@ class Transport extends Component {
                         <Link to="/Bookings">
                             <button className="start-booking-button">Start Booking</button>
                         </Link>
-                    </div>
-                </div>
-
-                <div className="carousel-container">
-                    <div className="carousel-text">
-                        <h2>Providing you a Full Portfolio of Solutions</h2>
-                        <p>We share your passion for transporting cargo safely, efficiently and sustainably around the world. As a global leader in container shipping our ships transport all types of goods all over the world, meeting critical deadlines for a huge range of customers. Customers in many different industries rely on us and we deliver, across 300 routes and 900 vessels, with a choice of services that cater for the demands of your cargo.
-                            Choose from a range of dry cargo containers in standard and high cube steel, reefer containers using the latest technology to keep your frozen and refrigerated produce at optimum conditions, and solutions for your oversized cargo. We have the expertise to offer you the right solution for your shipments and the personalized support your business needs.
-                        </p>
-                    </div>
-
-                    <div className="carousel">
-                        <button className="carousel-btn left-btn" onClick={this.prevImage}>❮</button>
-                        <div className="carousel-image">
-                            <img src={this.carouselImages[this.state.currentImageIndex]} alt="Carousel Image" />
-                        </div>
-                        <button className="carousel-btn right-btn" onClick={this.nextImage}>❯</button>
                     </div>
                 </div>
 
@@ -204,9 +187,9 @@ class Transport extends Component {
                         {/* Contact Section */}
                         <div>
                             <h3 className="font-bold uppercase mb-3">Country-Location / Local Office</h3>
-                            <p>IN - SGL Mumbai</p>
-                            <p className="flex items-center mt-2">📞 +91 2266378000</p>
-                            <p className="flex items-center">✉️ ind-info@sgl.com</p>
+                            <p className="mt-2">IN - SGL Mumbai</p>
+                            <p className="mt-2">📞 +91 2266378000</p>
+                            <p className="mt-2">✉️ ind-info@sgl.com</p>
                             <p className="mt-2">🏢 Office details</p>
                         </div>
 

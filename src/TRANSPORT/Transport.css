@@ -1,511 +1,405 @@
-/* ========== General Styles ========== */
-body {
-    /* margin: 0; */
-    font-family: 'Poppins', sans-serif;
-    /* color: #333; */
-    /* background-color: #f4f4f4; */
-}
-
-.NavWrapper {
-    width: 100%;
-    height: 75vh;
+/* ====== General Styles ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  /* ====== Navigation Bar ====== */
+  .NavWrapper {
+    min-height: 90vh;
     background-size: cover;
     background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: center; */
-    padding-top: 40px;
     position: relative;
-    text-align: center;
-}
-
-.navigationBar {
+  }
+  
+  .NavWrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(0, 0, 0, 0.5); */
+    z-index: 1;
+  }
+  
+  .navigationBar {
+    position: relative;
+    z-index: 10;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    /* padding: 15px 20px; */
-    /* background: rgba(255, 255, 255, 0.9); */
-    border-radius: 10px;
-    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
-}
-
-/* ========== Profile Dropdown ========== */
-.profileSection {
+    padding: 1rem 2rem;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+  }
+  
+  .logoContainer {
+    padding: 0.5rem;
+  }
+  
+  /* ====== Profile Section ====== */
+  .profileSection {
     position: relative;
-}
-
-.userDropdown {
+  }
+  
+  .userDropdown {
     position: relative;
-    display: inline-block;
-}
-
-.dropdownToggle {
+  }
+  
+  .dropdownToggle {
     background: none;
     border: none;
     cursor: pointer;
-}
-
-.profilePicture {
-    width: 45px;
-    height: 45px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-img {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    border: 2px solid #ccc;
-    transition: all 0.3s;
-}
-
-.profilePicture:hover {
-    border-color: #007bff;
-}
-
-.dropdownContent {
-    display: none;
+    border: 2px solid #b09c35;
+    transition: all 0.3s ease;
+  }
+  
+  .profile-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  
+  .dropdownContent {
     position: absolute;
-    top: 100%;
-    right: 0%;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    right: 0;
+    top: 45px;
+    width: 180px;
+    background-color: white;
     border-radius: 8px;
-    min-width: 180px;
-    padding: 10px;
-    z-index: 1000;
-    transition: all 0.3s ease-in-out;
-}
-
-.dropdownContent.visible {
-    display: block;
-}
-
-.dropdownContent ul {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+  
+  .dropdownContent.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .dropdownContent ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-}
-
-.dropdownContent li {
-    padding: 12px;
-    transition: background 0.3s;
-}
-
-.dropdownContent a, .signOutButton {
-    text-decoration: none;
-    color: black;
+  }
+  
+  .dropdownContent ul li {
+    padding: 0;
+  }
+  
+  .dropdownContent ul li a {
     display: block;
+    padding: 12px 16px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .dropdownContent ul li a:hover {
+    background-color: #f5f5f5;
+    color: #b09c35;
+  }
+  
+  .signOutButton, .signInButton {
     width: 100%;
-    background: none;
-    border: none;
-    cursor: pointer;
     text-align: left;
-    font-size: 15px;
-}
-
-.dropdownContent li:hover {
-    background: #f0f0f0;
-    border-radius: 5px;
-}
-
-/* ========== Shipping Logos ========== */
-.shipping {
+    font-weight: 500;
+  }
+  
+  /* ====== Shipping Section ====== */
+  .shipping {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .shippingChild {
+    margin: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .shippingChild:hover {
+    transform: scale(1.05);
+  }
+  
+  /* ====== Start Booking Button ====== */
+  .start-booking-container {
+    position: relative;
+    z-index: 10;
     display: flex;
     justify-content: center;
-    gap: 50px;
-    margin-top: 20px;
-}
-
-.shippingChild img {
-    max-width: 140px;
-    transition: transform 0.3s;
-}
-
-.shippingChild img:hover {
-    transform: scale(1.1);
-}
-
-/* ========== Start Booking Button ========== */
-.start-booking-container {
-    margin-top: 30px;
-}
-
-.start-booking-button {
-    background-color: rgba(176, 155, 53, 0.45);
+    margin-top: 2rem;
+    padding-bottom: 3rem;
+  }
+  
+  .start-booking-button {
+    background-color: #b09c35;
     color: white;
-    padding: 14px 34px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 12px 36px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 17px;
     transition: all 0.3s ease;
-}
-
-.start-booking-button:hover {
-    background-color: rgb(176, 156, 53);
-    transform: scale(1.05);
-}
-
-/* ========== Carousel ========== */
-.carousel-container {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    place-items: center;
-    width: 100vw;
-    margin-top: 30px;
+  }
+  
+  .start-booking-button:hover {
+    background-color: #8a7a29;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ====== Services Section ====== */
+  .services-section {
+    padding: 4rem 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  .section-header {
     text-align: center;
-    /* padding: 100px ; */
-}
-
-.carousel-text h2 {
-    font-size: 36px;
-    font-weight: bolder;
-    margin-bottom: 10px;
-}
-
-.carousel-text p {
-    padding: 20px;
-    font-size: 16px;
-    color: #555;
-}
-
-.carousel {
+    margin-bottom: 3rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .section-header p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .service-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    place-items: center;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+    color: #b09c35;
+    margin-bottom: 1rem;
+  }
+  
+  .service-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .service-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  /* ====== Footer ====== */
+  footer {
+    background-color: #f5f5f5;
+    padding: 3rem 2rem;
+    color: #333;
+  }
+  
+  footer h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #111;
+  }
+  
+  footer p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  footer a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+  
+  footer a:hover {
+    color: #b09c35;
+  }
+  
+  /* ====== Responsive Design ====== */
+  
+  /* Large screens (1200px and above) */
+  @media (min-width: 1200px) {
+    .service-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Medium screens (992px - 1199px) */
+  @media (max-width: 1199px) {
+    .service-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Tablets (768px - 991px) */
+  @media (max-width: 991px) {
+    .section-header h2 {
+      font-size: 2rem;
+    }
+  
+    .service-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .navigationBar {
+      padding: 1rem;
+    }
+  }
+  
+  /* Small tablets (576px - 767px) */
+  @media (max-width: 767px) {
+    .shipping {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  
+    .service-cards {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  
+    .section-header h2 {
+      font-size: 1.8rem;
+    }
+  
+    .section-header p {
+      font-size: 1rem;
+    }
+  }
+  
+  /* Mobile (575px and below) */
+  @media (max-width: 575px) {
+    .navigationBar {
+      padding: 0.8rem;
+    }
+  
+    .start-booking-button {
+      font-size: 1.1rem;
+      padding: 10px 28px;
+    }
+  
+    .service-cards {
+      grid-template-columns: 1fr;
+    }
+  
+    .section-header h2 {
+      font-size: 1.6rem;
+    }
+  
+    .shipping {
+      padding: 1rem;
+    }
+  
+    .shippingChild img {
+      width: 150px;
+    }
+  }
+  
+  /* Small mobile devices */
+  @media (max-width: 375px) {
+    .navigationBar {
+      padding: 0.6rem;
+    }
+  
+    .logoContainer img {
+      width: 60px;
+    }
+  
+    .shippingChild img {
+      width: 120px;
+    }
+  }
+  
+  /* For carousel (not implemented yet in the component) */
+  .carousel {
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .carousel-container {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .carousel-slide {
+    min-width: 100%;
+  }
+  
+  .carousel-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .carousel-btn {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    padding: 30px;
-}
-
-.carousel-image{
-    place-items: center;
-}
-
-.carousel-image img {
-    max-width: 85%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.carousel-btn {
-    /* background: rgba(0, 0, 0, 0.5); */
-    color: black;
-    border: none;
     cursor: pointer;
-    font-size: 24px;
-    padding: 12px;
-    position: absolute;
-    transition: background 0.3s;
-}
-
-.carousel-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.left-btn {
-    left: 10px;
-}
-
-.right-btn {
-    right: 10px;
-}
-
-/* ========== Services Section with Cards ========== */
-.services-section {
-    padding: 60px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
-}
-
-.section-header {
-    margin-bottom: 40px;
-}
-
-.section-header h2 {
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.section-header p {
-    font-size: 18px;
-    color: #666;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.service-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.service-card {
-    background-color: #fff;
-    place-items: center;
-    border-radius: 12px;
-    padding: 30px 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.card-icon {
-    font-size: 50px;
-    margin-bottom: 20px;
-    color: #b09b35;
-}
-
-.service-card h3 {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.service-card p {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.6;
-}
-
-/* ========== Footer ========== */
-
-
-/* ========== Responsive Styles ========== */
-@media (max-width: 1200px) {
-    .service-cards {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding: 0 15px;
-    }
-    
-    .footer-content {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .shipping {
-        gap: 30px;
-    }
-    
-    .shippingChild img {
-        max-width: 120px;
-    }
-    
-    .service-cards {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-    
-    .section-header h2 {
-        font-size: 28px;
-    }
-    
-    .section-header p {
-        font-size: 16px;
-    }
-
-    .footer-content {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .carousel-image img {
-        max-width: 95%;
-    }
-    
-    .carousel-text h2 {
-        font-size: 22px;
-    }
-    
-    .carousel-text p {
-        font-size: 16px;
-    }
-    
-    .shipping {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .service-cards {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .service-card {
-        padding: 25px 15px;
-    }
-    
-    .card-icon {
-        font-size: 40px;
-    }
-    
-    .service-card h3 {
-        font-size: 20px;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-    }
-    
-    .footer-section:last-child {
-        grid-column: span 2;
-    }
-}
-
-@media (max-width: 576px) {
-    .NavWrapper {
-        height: 60vh;
-    }
-    
-    .navigationBar {
-        width: 95%;
-    }
-    
-    .carousel-text h2 {
-        font-size: 20px;
-        padding: 0 10px;
-    }
-    
-    .carousel-text p {
-        font-size: 14px;
-        padding: 10px;
-    }
-    
-    .carousel {
-        padding: 15px 5px;
-    }
-    
-    .section-header h2 {
-        font-size: 24px;
-    }
-    
-    .services-section {
-        padding: 40px 10px;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-section:last-child {
-        grid-column: span 1;
-    }
-    
-    .footer-links-row {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .footer-link-item:not(:last-child)::after {
-        display: none;
-    }
-    
-    .footer-bottom-links {
-        flex-direction: column;
-        gap: 5px;
-    }
-    
-    .footer-bottom-link:not(:last-child)::after {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .carousel-text h2 {
-        font-size: 18px;
-    }
-    
-    .carousel-text p {
-        font-size: 14px;
-    }
-    
-    .start-booking-button {
-        padding: 10px 16px;
-        font-size: 14px;
-    }
-    
-    .shippingChild img {
-        max-width: 100px;
-    }
-    
-    .card-icon {
-        font-size: 36px;
-    }
-    
-    .service-card h3 {
-        font-size: 18px;
-    }
-    
-    .service-card p {
-        font-size: 14px;
-    }
-    
-    .section-header h2 {
-        font-size: 22px;
-    }
-    
-    .section-header p {
-        font-size: 14px;
-    }
-    
-    .footer-section h3 {
-        font-size: 20px;
-    }
-    
-    .footer-section p,
-    .footer-section.links a {
-        font-size: 14px;
-    }
-    
-    .social-icon {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 380px) {
-    .NavWrapper {
-        height: 50vh;
-    }
-    
-    .profilePicture {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .logoContainer img {
-        width: 70px;
-    }
-    
-    .shipping {
-        gap: 15px;
-    }
-    
-    .shippingChild img {
-        max-width: 80px;
-    }
-    
-    .start-booking-button {
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-    
-    .carousel-btn {
-        font-size: 18px;
-        padding: 8px;
-    }
-    
-    .service-card {
-        padding: 20px 10px;
-    }
-}
+    transition: all 0.3s ease;
+  }
+  
+  .carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }

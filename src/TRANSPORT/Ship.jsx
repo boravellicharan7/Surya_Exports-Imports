@@ -474,7 +474,7 @@ const BookingComponent = () => {
         <div className="shipping-booking-container">
             <div className="header">
                 <div className="logo">
-                    <img src="src\assets\BLACK_LOGO-removebg-preview.png" alt="Global Shipping Solutions" />
+                    <img src="src\assets\Company_logo.png" alt="Global Shipping Solutions" />
                     <span>Surya Shipping Solutions</span>
                 </div>
             </div>

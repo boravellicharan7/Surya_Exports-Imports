@@ -66,14 +66,12 @@
     padding: 2rem;
     background: rgba(0, 0, 0, 0.667);
     color: whitesmoke;
-    /* place-items: center; */
 }
 
 .formContainer {
     width: 450px;
     max-width: 100%;
     animation: fadeIn 0.6s ease-in-out;
-    place-items: center;
 }
 
 .formTitle {
@@ -196,6 +194,7 @@
 }
 
 .alternateLoginOptions {
+    place-items: center;
     margin: 1rem 0;
     width: 90%;
     text-align: center;
@@ -247,6 +246,7 @@
 /* Switch Mode */
 .switchModeButton {
     background: none;
+    text-decoration: none;
     border: none;
     font-size: 0.9rem;
     color: #b09c35;
@@ -254,65 +254,46 @@
     cursor: pointer;
     transition: 0.3s;
     align-self: center;
-    margin-top: 16px;
-}
-
-.switchModeButton:hover {
-    text-decoration: underline;
 }
 
 /* ====== Popups & Alerts ====== */
-/* Add these styles to your Auth.css file */
-
 .alertPopup {
     position: fixed;
     top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 20px;
+    background: #27ae60;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.5s ease-in-out;
     z-index: 1000;
-    padding: 10px 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease-out;
-    min-width: 250px;
-    text-align: center;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, -10px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
-  }
-  
-  .alertPopup.success {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .alertPopup.error {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .alertPopup.info {
-    background-color: #2196F3;
-    color: white;
-  }
-  
-  .alertContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-  }
-  
-  .closeAlert {
+}
+
+.alertPopup.error {
+    background: #e74c3c;
+}
+
+.closeAlert {
     background: none;
     border: none;
     color: white;
-    font-size: 20px;
-    margin-left: 10px;
+    font-size: 1.2rem;
     cursor: pointer;
-  }
+    margin-left: 10px;
+    opacity: 0.8;
+}
+
+.closeAlert:hover {
+    opacity: 1;
+}
+
+
 
 /* Popup Slide-in Animation */
 @keyframes slideIn {
@@ -326,86 +307,6 @@
         transform: translateX(0);
     }
 }
-
-.skeleton-logo,
-.skeleton-text-large,
-.skeleton-text-small,
-.skeleton-title,
-.skeleton-subtitle,
-.skeleton-input,
-.skeleton-button,
-.skeleton-divider {
-  background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
-  background-size: 800px 104px;
-  animation: shimmer 1.5s infinite linear;
-  border-radius: 4px;
-  margin-bottom: 12px;
-}
-
-/* Brand section skeleton */
-.skeleton-logo {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin: 20px auto;
-}
-
-.skeleton-text-large {
-  width: 160px;
-  height: 32px;
-  margin: 10px auto;
-}
-
-.skeleton-text-small {
-  width: 120px;
-  height: 20px;
-  margin: 10px auto;
-}
-
-.skeleton-text-small.center {
-  margin: 20px auto;
-  width: 220px;
-}
-
-/* Form section skeleton */
-.skeleton-form {
-  padding: 30px;
-  width: 100%;
-  max-width: 450px;
-}
-
-.skeleton-title {
-  height: 36px;
-  width: 70%;
-  margin-bottom: 16px;
-}
-
-.skeleton-subtitle {
-  height: 20px;
-  width: 60%;
-  margin-bottom: 24px;
-}
-
-.skeleton-input {
-  height: 60px;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.skeleton-button {
-  height: 48px;
-  width: 100%;
-  margin: 16px 0;
-}
-
-.skeleton-divider {
-  height: 20px;
-  width: 100%;
-  margin: 20px 0;
-}
-
-/* Your existing styles below */
-/* Keep all your existing CSS rules */
 
 /* ====== Responsive Design ====== */
 
@@ -422,12 +323,20 @@
     .companyName {
         font-size: 2.8rem;
     }
+
+    .switchModeButton{
+        text-decoration: none;
+    }
 }
 
 /* Standard Laptops (992px - 1199px) */
 @media (max-width: 1199px) {
     .formContainer {
         width: 420px;
+    }
+
+    .switchModeButton{
+        text-decoration: none;
     }
 }
 
@@ -447,6 +356,14 @@
 
     .brandTagline {
         font-size: 1.1rem;
+    }
+
+    .alternateLoginOptions{
+        place-items: center;
+    }
+
+    .switchModeButton{
+        text-decoration: none;
     }
 }
 
@@ -487,6 +404,14 @@
     .formContainer {
         width: 100%;
         max-width: 450px;
+    }
+
+    .alternateLoginOptions{
+        place-items: center;
+    }
+
+    .switchModeButton{
+        text-decoration: none;
     }
 }
 
@@ -544,8 +469,13 @@
         font-size: 0.95rem;
     }
 
+    .alternateLoginOptions{
+        place-items: center;
+    }
+
     .switchModeButton {
         font-size: 0.85rem;
+        text-decoration: none;
     }
 }
 
@@ -581,6 +511,10 @@
         font-size: 0.85rem;
         padding: 10px 14px;
     }
+
+    .switchModeButton{
+        text-decoration: none;
+    }
 }
 
 /* For devices with low height */
@@ -597,6 +531,10 @@
     .inputGroup {
         margin-bottom: 0.8rem;
     }
+
+    .switchModeButton{
+        text-decoration: none;
+    }
 }
 
 /* Add these skeleton loading styles to your existing Auth.css file */
@@ -612,4 +550,82 @@
   }
   
   /* Common skeleton properties */
- 
+  .skeleton-logo,
+  .skeleton-text-large,
+  .skeleton-text-small,
+  .skeleton-title,
+  .skeleton-subtitle,
+  .skeleton-input,
+  .skeleton-button,
+  .skeleton-divider {
+    background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+    background-size: 800px 104px;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  
+  /* Brand section skeleton */
+  .skeleton-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 20px auto;
+  }
+  
+  .skeleton-text-large {
+    width: 160px;
+    height: 32px;
+    margin: 10px auto;
+  }
+  
+  .skeleton-text-small {
+    width: 120px;
+    height: 20px;
+    margin: 10px auto;
+  }
+  
+  .skeleton-text-small.center {
+    margin: 20px auto;
+    width: 220px;
+  }
+  
+  /* Form section skeleton */
+  .skeleton-form {
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+  }
+  
+  .skeleton-title {
+    height: 36px;
+    width: 70%;
+    margin-bottom: 16px;
+  }
+  
+  .skeleton-subtitle {
+    height: 20px;
+    width: 60%;
+    margin-bottom: 24px;
+  }
+  
+  .skeleton-input {
+    height: 60px;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .skeleton-button {
+    height: 48px;
+    width: 100%;
+    margin: 16px 0;
+  }
+  
+  .skeleton-divider {
+    height: 20px;
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  /* Your existing styles below */
+  /* Keep all your existing CSS rules */

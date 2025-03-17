@@ -22,9 +22,6 @@ class AuthPage extends Component {
     this.alertTimeout = null;
   }
 
-  // Remove the componentDidMount method that was setting isLoading to false after a delay
-  // This was one of the issues causing the skeleton to appear
-
   componentWillUnmount() {
     // Clear any remaining timeouts to prevent memory leaks
     if (this.alertTimeout) {
@@ -268,11 +265,13 @@ class AuthPage extends Component {
                 </button>
                 
                 <div className="alternateLoginOptions">
-                  <p className="optionsDivider">or</p>
                   
-                  <button type="button" className="googleButton" onClick={this.handleGoogleLogin}>
-                    Sign in with Google
-                  </button>
+                  {/* Only show Google login option when in login mode */}
+                  {isLogin && (
+                    <button type="button" className="googleButton" onClick={this.handleGoogleLogin}>
+                      Sign in with Google
+                    </button>
+                  )}
                   
                   <button type="button" className="guestButton" onClick={this.handleGuestLogin}>
                     Continue as Guest
