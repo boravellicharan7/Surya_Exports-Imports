@@ -2,8 +2,7 @@ import React from 'react';
 import './Profile.css';
 import {FaLinkedin, FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaGlobe, FaShoppingCart, FaFileInvoice, FaChartBar, FaTruck, FaChartLine } from "react-icons/fa";
-
-
+import pic from "../assets/profile_pic.png"
 
 const UserProfilePage = () => {
   return (
@@ -15,7 +14,7 @@ const UserProfilePage = () => {
           <h2 className="section-title">Leadership</h2>
           <div className="user-details">
             <img
-              src="src\assets\profile_pic.png"
+              src={pic}
               alt="CEO Portrait"
               className="user-image"
             />
